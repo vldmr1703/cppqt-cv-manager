@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 // We should keep list of programmers CVs
 // For each CV we have
@@ -11,7 +12,7 @@
 class CV
 {
 public:
-    CV(char *name, int birthYear, char *skills, char *previousJobs) :
+    CV(const std::string &name, int birthYear, const std::string &skills, const std::string &previousJobs) :
         mName{name}
       , mBirthYear{birthYear}
       , mSkills{skills}
@@ -30,10 +31,10 @@ public:
     }
 
 private:
-    char *mName;
+    std::string mName;
     int mBirthYear;
-    char *mSkills;
-    char *mPreviousJobs;
+    std::string mSkills;
+    std::string mPreviousJobs;
 };
 
 
