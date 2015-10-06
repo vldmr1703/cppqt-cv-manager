@@ -21,13 +21,24 @@ public:
 
     }
 
+    bool isValid() const
+    {
+        return !mName.empty()
+                && ((mBirthYear > 1970) && (mBirthYear < 1995))
+                && !mSkills.empty()
+                && !mPreviousJobs.empty();
+    }
+
     void print() const
     {
-        std::cout << mName << " (" << mBirthYear << ")" << std::endl;
-        std::cout << "=====================" << std::endl;
-        std::cout << "Skills: " << mSkills << std::endl;
-        std::cout << "Previous work record: " << mPreviousJobs << std::endl;
-        std::cout << std::endl;
+        if (isValid())
+        {
+            std::cout << mName << " (" << mBirthYear << ")" << std::endl;
+            std::cout << "=====================" << std::endl;
+            std::cout << "Skills: " << mSkills << std::endl;
+            std::cout << "Previous work record: " << mPreviousJobs << std::endl;
+            std::cout << std::endl;
+        }
     }
 
 private:
@@ -44,11 +55,18 @@ int main()
 
     CV dansCV("Dan Davidson", 1988, "C++, Java", "IBM 1996-1997");
 
-    CV cvList[] {johnsCV, dansCV, {"Will Walker", 1977, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
+    CV cvList[] {johnsCV, dansCV, {"Will Walker", 197, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
 
     for (const auto& cv: cvList)
     {
-        cv.print();
+        if (cv.isValid())
+        {
+            cv.print();
+        }
+        else
+        {
+            std::cout << "ERROR: CV is invalid" << std::endl;
+        }
     }
 
     return 0;
