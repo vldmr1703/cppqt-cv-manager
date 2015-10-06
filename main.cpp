@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include <vector>
 
 // We should keep list of programmers CVs
 // For each CV we have
@@ -56,7 +57,8 @@ int main()
 
     CV dansCV("Dan Davidson", 1988, "C++, Java", "IBM 1996-1997");
 
-    std::array<CV, 3> cvList {johnsCV, dansCV, {"Will Walker", 197, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
+//    std::array<CV, 3> cvList {johnsCV, dansCV, {"Will Walker", 197, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
+    std::vector<CV> cvList {johnsCV, dansCV, {"Will Walker", 197, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
 
     for (const auto& cv: cvList)
     {
