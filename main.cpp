@@ -1,68 +1,21 @@
 #include <iostream>
 #include <string>
-#include <array>
 #include <vector>
-
-// We should keep list of programmers CVs
-// For each CV we have
-//      * name field
-//      * birthday year
-//      * list of skills
-//      * list of previous jobs
-//      * we would like to print our CV
-
-class CV
-{
-public:
-    CV(const std::string &name, int birthYear, const std::string &skills, const std::string &previousJobs) :
-        mName{name}
-      , mBirthYear{birthYear}
-      , mSkills{skills}
-      , mPreviousJobs{previousJobs}
-    {
-
-    }
-
-    bool isValid() const
-    {
-        return !mName.empty()
-                && ((mBirthYear > 1970) && (mBirthYear < 1995))
-                && !mSkills.empty()
-                && !mPreviousJobs.empty();
-    }
-
-    void print() const
-    {
-        if (isValid())
-        {
-            std::cout << mName << " (" << mBirthYear << ")" << std::endl;
-            std::cout << "=====================" << std::endl;
-            std::cout << "Skills: " << mSkills << std::endl;
-            std::cout << "Previous work record: " << mPreviousJobs << std::endl;
-            std::cout << std::endl;
-        }
-    }
-
-private:
-    std::string mName;
-    int mBirthYear;
-    std::string mSkills;
-    std::string mPreviousJobs;
-};
-
+#include<cv.h>
 
 int main()
 {
-    CV johnsCV {"John Jonson", 1978,"C++, Java", "IBM 1990-1995; Microsoft 1996-2002"};
-
-    CV dansCV("Dan Davidson", 1988, "C++, Java", "IBM 1996-1997");
-
-//    std::array<CV, 3> cvList {johnsCV, dansCV, {"Will Walker", 197, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
-    std::vector<CV> cvList {johnsCV, dansCV, {"Will Walker", 197, "C++, Java", "IBM 1990-1999; Microsoft 1999-2010"} };
-
-    for (const auto& cv: cvList)
-    {
-        if (cv.isValid())
+    JobRecord johns(1990,1995," developer","IBM");
+    JobRecord johns1(1995,1999," junior developer","IBM");
+    CV johnsCV ("John Jonson", 1978,"C++, Java",{johns});
+    johnsCV.addJobRecord(johns1);
+    JobRecord dans{1996,1997,"senior software developer","IBM "};
+    CV dansCV("Dan Davidson", 1988, "C++, Java",{dans});
+    JobRecord wills{1990,1999,"developer","IBM"};
+    JobRecord wills1{1999,2010,"junior deloper", "Microsoft"};
+    std::vector<CV> cvList {johnsCV, dansCV, {"Will Walker", 1979, "C++, Java",{wills,wills1}} };
+    for(const auto &cv:cvList)
+        if(cv.isValid())
         {
             cv.print();
         }
@@ -70,7 +23,12 @@ int main()
         {
             std::cout << "ERROR: CV is invalid" << std::endl;
         }
-    }
+    std::vector<JobRecord> list{johnsCV.JobRecords()};
+    for(const auto &l:list)
+        if(l.isValid())
+        {
+            l.print();
+        }
 
     return 0;
 }
